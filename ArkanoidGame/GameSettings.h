@@ -2,7 +2,7 @@
 #include <string>
 
 
-namespace ArkanoidGame
+namespace RogueLikeGame
 {
 	class GameWorld {
 	private:
@@ -45,7 +45,7 @@ namespace ArkanoidGame
 		const int MAX_RECORDS_TABLE_SIZE = 5;
 		const char* PLAYER_NAME = "Player";
 
-		const std::string GAME_NAME = "ArkanoidGame";
+		const std::string GAME_NAME = "RogueLikeGame";
 		const float BREAK_DELAY = 1.f;
 	};
 }
