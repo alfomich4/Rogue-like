@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Collidable.h"
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	class Platform : public GameObject, public Colladiable
 	{

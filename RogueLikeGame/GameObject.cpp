@@ -3,7 +3,7 @@
 #include <assert.h>
 
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	GameObject::GameObject(const std::string& texturePath, const sf::Vector2f& position, float width, float height):
 		startPosition(position)

@@ -5,7 +5,7 @@
 #include "Application.h"
 
 
-using namespace RogueLikeGame;
+using namespace ArkanoidGame;
 
 int main()
 {

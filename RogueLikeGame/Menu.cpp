@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include <assert.h>
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	void Menu::Init(const MenuItem& item)
 	{

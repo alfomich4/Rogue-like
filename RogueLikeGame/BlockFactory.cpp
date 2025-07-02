@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "ThreeHitBlock.h"
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	int BlockFactory::GetcreatedBreackableBlocksCount() {
 

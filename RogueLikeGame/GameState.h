@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameStateData.h"
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	enum class GameStateType
 	{

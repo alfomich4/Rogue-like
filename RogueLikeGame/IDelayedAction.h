@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <memory>
 
-namespace RogueLikeGame
+namespace ArkanoidGame
 {
 	class IDelayedAction
 	{
