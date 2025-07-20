@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "Vector.h"
 
-TEST(VectorTests, ZeroContructor) 
+
+TEST(VectorTests, ZeroContructor)
+
 {
 	XYZEngine::Vector2D<float> vector;
 	EXPECT_EQ(vector.x, 0);
