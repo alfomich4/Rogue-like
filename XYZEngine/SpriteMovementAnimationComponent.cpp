@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "SpriteMovementAnimationComponent.h"
+#include"AttackComponent.h"
+
 
 XYZEngine::SpriteMovementAnimationComponent::SpriteMovementAnimationComponent(GameObject* gameObject)
 	: Component(gameObject)
 {
 	movement = gameObject->GetComponent<MovementComponent>();
 	renderer = gameObject->GetComponent<SpriteRendererComponent>();
+	attackComp = gameObject->GetComponent<AttackComponent>();
 
 	if (movement == nullptr)
 	{
@@ -17,46 +20,87 @@ XYZEngine::SpriteMovementAnimationComponent::SpriteMovementAnimationComponent(Ga
 		std::cout << "Need renderer component for movement animation" << std::endl;
 		gameObject->RemoveComponent(this);
 	}
+	else if (attackComp == nullptr)
+	{
+		std::cout << "Need attack component for movement animation" << std::endl;
+		gameObject->RemoveComponent(this);
+	}
+
 }
 
-void XYZEngine::SpriteMovementAnimationComponent::Initialize(const std::string& textureMapName, float newFramerate)
+
+
+void XYZEngine::SpriteMovementAnimationComponent::Initialize(float newFramerate)
 {
-	for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount("player"); i++)
+
+	for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount("player_walking"); i++)
 	{
-		textureMap.push_back(ResourceSystem::Instance()->GetTextureMapElementShared("player", i));
+		playerWalkTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared("player_walking", i));
 	}
+
+
+
+	for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount("player_idle"); i++)
+	{
+		playerIdleTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared("player_idle", i));
+	}
+
+
+
+
 
 	secondsForFrame = 1.f / newFramerate;
 }
 
+
+
 void XYZEngine::SpriteMovementAnimationComponent::Update(float deltaTime)
 {
+
+
+	if (attackComp->IsAttacking())
+	{
+		return;
+	}
 	if (movement->GetAccelerationSquared() == 0.f)
 	{
-		if (counter > 0)
+
+		renderer->SetTexture(*playerIdleTex[idleFrame]);
+		idleCounter += deltaTime;
+		if (idleCounter > secondsForFrame)
 		{
-			counter = 0;
-			frame = 0;
-			renderer->SetTexture(*textureMap[0]);
+			idleCounter = 0;
+			idleFrame++;
+			if (idleFrame == playerIdleTex.size())
+			{
+				idleFrame = 0;
+			}
+
+
 		}
+
 		return;
 	}
 
-	counter += deltaTime;
-	if (counter > secondsForFrame)
-	{
-		counter = 0;
-		frame++;
 
-		if (frame == textureMap.size())
+	walkCounter += deltaTime;
+	if (walkCounter > secondsForFrame)
+	{
+		renderer->SetTexture(*playerWalkTex[walkFrame]);
+		walkCounter = 0;
+		walkFrame++;
+
+		if (walkFrame == playerWalkTex.size())
 		{
-			frame = 0;
+			walkFrame = 0;
 		}
 
-		renderer->SetTexture(*textureMap[frame]);
+
+
 	}
 }
 
 void XYZEngine::SpriteMovementAnimationComponent::Render()
 {
+
 }

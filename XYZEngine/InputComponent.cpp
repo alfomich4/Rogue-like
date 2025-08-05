@@ -8,6 +8,9 @@ namespace XYZEngine
 
 	void InputComponent::Update(float deltaTime)
 	{
+		bool mouseDownNow = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+		mouseClickedThisFrame = (mouseDownNow && !wasMouseDownLastFrame);
+		wasMouseDownLastFrame = mouseDownNow;
 		verticalAxis = 0.f;
 		horizontalAxis = 0.f;
 
@@ -32,6 +35,16 @@ namespace XYZEngine
 			horizontalAxis -= 1.0f;
 			LOG_INFO("Move left");
 		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (mouseClickedThisFrame)
+			{
+				LOG_INFO("Left mouse button pressed");
+			}
+
+
+		}
 	}
 	void InputComponent::Render()
 	{
@@ -46,4 +59,9 @@ namespace XYZEngine
 	{
 		return verticalAxis;
 	}
-}
+	bool InputComponent::IsMousePressed() const
+	{
+
+		return mouseClickedThisFrame;
+	}
+};

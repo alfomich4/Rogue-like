@@ -7,6 +7,7 @@
 #include <StatsComponent.h>
 #include <AttackComponent.h>
 
+
 namespace XYZRoguelike
 {
 	Player::Player(const XYZEngine::Vector2Df& position)
@@ -16,7 +17,7 @@ namespace XYZRoguelike
 		transform->SetWorldPosition(position);
 
 		auto renderer = gameObject->AddComponent<XYZEngine::SpriteRendererComponent>();
-		renderer->SetTexture(*XYZEngine::ResourceSystem::Instance()->GetTextureMapElementShared("player", 0));
+		renderer->SetTexture(*XYZEngine::ResourceSystem::Instance()->GetTextureMapElementShared("player_idle", 0));
 		renderer->SetPixelSize(100, 100);
 
 		auto camera = gameObject->AddComponent<XYZEngine::CameraComponent>();
@@ -33,15 +34,16 @@ namespace XYZRoguelike
 		auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
 		rigidbody->SetKinematic(false);
 
-		auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+		/*auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();*/
+		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 50.f);
+
+		auto attackComponent = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
 
 		auto animator = gameObject->AddComponent<XYZEngine::SpriteMovementAnimationComponent>();
 
-		animator->Initialize("player", 6.f);
+		attackComponent->Initialize(12.f);
 
-		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>( 100.f, 50.f);
-
-		auto attackComponent = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
+		animator->Initialize(6.f);
 
 	}
 
