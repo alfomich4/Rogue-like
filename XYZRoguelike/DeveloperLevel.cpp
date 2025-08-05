@@ -7,8 +7,8 @@ namespace XYZRoguelike
 {
 	void DeveloperLevel::Start()
 	{
-		int width = 15;
-		int height = 15;
+		int width = 4;
+		int height = 4;
 
 		for (int y = 0; y < height + 1; y++)
 		{
@@ -73,7 +73,7 @@ namespace XYZRoguelike
 		}
 
 		player = std::make_unique<Player>(std::forward<XYZEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }));
-		/*music = std::make_unique<Music>("music");*/
+		music = std::make_unique<Music>("GamePlaymusic");
 	}
 	void DeveloperLevel::Restart()
 	{

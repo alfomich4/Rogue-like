@@ -124,7 +124,9 @@ namespace XYZEngine
 		if (newSound->loadFromFile(sourcePath))
 		{
 			sounds.emplace(name, newSound);
+			
 		}
+		 
 	}
 	const sf::SoundBuffer* ResourceSystem::GetSound(const std::string& name) const
 	{

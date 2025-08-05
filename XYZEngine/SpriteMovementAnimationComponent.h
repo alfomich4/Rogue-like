@@ -4,25 +4,35 @@
 #include "SpriteRendererComponent.h"
 #include "ResourceSystem.h"
 
+
+
 namespace XYZEngine
 {
+	class AttackComponent;
 	class SpriteMovementAnimationComponent : public Component
 	{
 	public:
 		SpriteMovementAnimationComponent(GameObject* gameObject);
 
-		void Initialize(const std::string& textureMapName, float newFramerate);
+
+		void Initialize(float newFramerate);
 
 		void Update(float deltaTime) override;
 		void Render() override;
 	private:
 		MovementComponent* movement;
 		SpriteRendererComponent* renderer;
+		AttackComponent* attackComp;
 
-		std::vector<const sf::Texture*> textureMap;
+
+		std::vector<const sf::Texture*> playerWalkTex;
+		std::vector<const sf::Texture*> playerIdleTex;
 		float secondsForFrame = 0.f;
+		float walkCounter = 0.f;
+		float idleCounter = 0.f;
+		int walkFrame = 0;
+		int idleFrame = 0;
 
-		float counter = 0.f;
-		int frame = 0;
+
 	};
 }
