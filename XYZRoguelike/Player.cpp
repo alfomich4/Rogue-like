@@ -8,6 +8,7 @@
 #include <AttackComponent.h>
 
 
+
 namespace XYZRoguelike
 {
 	Player::Player(const XYZEngine::Vector2Df& position)
@@ -46,6 +47,7 @@ namespace XYZRoguelike
 		animator->Initialize(6.f);
 
 	}
+
 
 	XYZEngine::GameObject* Player::GetGameObject()
 	{
