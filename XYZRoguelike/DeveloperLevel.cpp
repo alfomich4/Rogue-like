@@ -73,6 +73,7 @@ namespace XYZRoguelike
 		}
 
 		player = std::make_unique<Player>(std::forward<XYZEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }));
+		cobald = std::make_unique<Cobald>(std::forward<XYZEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }));
 		music = std::make_unique<Music>("GamePlaymusic");
 	}
 	void DeveloperLevel::Restart()

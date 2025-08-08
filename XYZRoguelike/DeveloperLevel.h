@@ -4,6 +4,7 @@
 #include <array>
 #include "Scene.h"
 #include "Player.h"
+#include "Cobald.h"
 #include "Music.h"
 #include "Floor.h"
 #include "Wall.h"
@@ -19,7 +20,8 @@ namespace XYZRoguelike
 		void Restart() override;
 		void Stop() override;
 	private:
-		std::shared_ptr<Player> player;
+		std::unique_ptr<Player> player;
+		std::unique_ptr<Cobald> cobald;
 		std::unique_ptr<Music> music;
 
 		std::vector<std::unique_ptr<Wall>> walls;
