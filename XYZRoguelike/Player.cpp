@@ -9,6 +9,7 @@
 
 
 
+
 namespace XYZRoguelike
 {
 	Player::Player(const XYZEngine::Vector2Df& position)
@@ -35,7 +36,9 @@ namespace XYZRoguelike
 		auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
 		rigidbody->SetKinematic(false);
 
-		/*auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();*/
+		auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+		collider->SetPadding({ 50.f, 0.f });
+		
 		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 50.f);
 
 		auto attackComponent = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
@@ -48,6 +51,8 @@ namespace XYZRoguelike
 
 	}
 
+
+	
 
 	XYZEngine::GameObject* Player::GetGameObject()
 	{

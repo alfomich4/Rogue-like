@@ -144,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AIAnimationComponent.h" />
+    <ClInclude Include="AIMovementComponent.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="CameraComponent.h" />
@@ -178,6 +180,8 @@
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIAnimationComponent.cpp" />
+    <ClCompile Include="AIMovementComponent.cpp" />
     <ClCompile Include="AttackComponent.cpp" />
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />

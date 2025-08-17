@@ -19,6 +19,7 @@ namespace XYZRoguelike
 		void Start() override;
 		void Restart() override;
 		void Stop() override;
+		
 	private:
 		std::unique_ptr<Player> player;
 		std::unique_ptr<Cobald> cobald;

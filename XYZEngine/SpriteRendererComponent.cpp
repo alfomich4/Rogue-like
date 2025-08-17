@@ -11,6 +11,7 @@ namespace XYZEngine
 		scale = { 1, -1 };
 		sprite->setScale({ 1, -1 });
 		transform = gameObject->GetComponent<TransformComponent>();
+		
 	}
 	SpriteRendererComponent::~SpriteRendererComponent()
 	{
@@ -53,12 +54,24 @@ namespace XYZEngine
 		scale = { (float)newWidth / (float)originalSize.x, -(float)newHeight / (float)originalSize.y };
 	}
 
+	Vector2Df SpriteRendererComponent::GetPixelSize() const
+	{
+		
+		auto rect = sprite->getTextureRect();
+		auto scale = sprite->getScale();
+
+		 float width = std::abs(rect.width * scale.x);
+		float height = std::abs(rect.height * scale.y);
+		return  { width, height };
+	}
+
 	void SpriteRendererComponent::FlipX(bool flip)
 	{
 		if (flip != isFlipX)
 		{
 			scale = { -scale.x, scale.y };
 			isFlipX = flip;
+			
 		}
 	}
 	void SpriteRendererComponent::FlipY(bool flip)
@@ -67,6 +80,7 @@ namespace XYZEngine
 		{
 			scale = { scale.x, -scale.y };
 			isFlipY = flip;
+		
 		}
 	}
 }

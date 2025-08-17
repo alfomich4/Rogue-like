@@ -6,7 +6,7 @@ XYZEngine::AttackComponent::AttackComponent(GameObject* gameObject, float attack
 {
 	input = gameObject->GetComponent<InputComponent>();
 	renderer = gameObject->GetComponent<SpriteRendererComponent>();
-
+	
 }
 
 void XYZEngine::AttackComponent::Update(float deltaTime)
