@@ -22,6 +22,7 @@ int main()
 	ResourceSystem::Instance()->LoadTextureMap("level_floors", "Resources/TextureMaps/Floor.png", { 16, 16 }, 49, false);
 	ResourceSystem::Instance()->LoadTextureMap("level_walls", "Resources/TextureMaps/Wall.png", { 16, 16 }, 48, false);
 	ResourceSystem::Instance()->LoadTextureMap("cobald_idle", "Resources/TextureMaps/idleCob.png", { 148, 96 }, 6, false);
+	ResourceSystem::Instance()->LoadTextureMap("cobald_walking", "Resources/TextureMaps/RUN.png", { 148, 96 }, 8, false);
 
 	ResourceSystem::Instance()->LoadSound("GamePlaymusic", "Resources/Sounds/trapped.wav");
 

@@ -10,7 +10,7 @@ namespace XYZEngine
     class AttackComponent : public Component
     {
     public:
-        /* AttackComponent(GameObject* gameObject,float attackPower):Component(gameObject), attackPower(attackPower) {};*/
+       
         void Initialize(float newFramerate);
         AttackComponent(GameObject* gameObject, float attackPower);
         float GetAttackPower() const { return attackPower; }

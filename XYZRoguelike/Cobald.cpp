@@ -2,19 +2,50 @@
 #include <ResourceSystem.h>
 #include <SpriteColliderComponent.h>
 #include <SpriteDirectionComponent.h>
-#include <SpriteMovementAnimationComponent.h>
-#include <StatsComponent.h>
-#include <AttackComponent.h>
+#include <AIMovementComponent.h>
+#include <AIAnimationComponent.h>
 
-Cobald::Cobald(const XYZEngine::Vector2Df& position)
-{
 
-	gameObject = XYZEngine::GameWorld::Instance()->CreateGameObject("Cobald");
-	auto transform = gameObject->GetComponent<XYZEngine::TransformComponent>();
-	transform->SetWorldPosition(position);
 
-	auto renderer = gameObject->AddComponent<XYZEngine::SpriteRendererComponent>();
-	renderer->SetTexture(*XYZEngine::ResourceSystem::Instance()->GetTextureMapElementShared("cobald_idle", 0));
-	renderer->SetPixelSize(100, 120);
+
+
+namespace XYZRoguelike
+{ 
+	Cobald::Cobald(const XYZEngine::Vector2Df& position, XYZEngine::GameObject* target)
+  {
+    gameObject = XYZEngine::GameWorld::Instance()->CreateGameObject("Cobald");
+    auto transform = gameObject->GetComponent<XYZEngine::TransformComponent>();
+    transform->SetWorldPosition(position);
+
+    auto renderer = gameObject->AddComponent<XYZEngine::SpriteRendererComponent>();
+    renderer->SetTexture(*XYZEngine::ResourceSystem::Instance()->GetTextureMapElementShared("cobald_idle", 0));
+    renderer->SetPixelSize(100, 120);
+
+    auto movement = gameObject->AddComponent<XYZEngine::AIMovementComponent>();
+	movement->SetSpeed(100.f);
+    movement->SetTarget(target);
+    auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
+    rigidbody->SetKinematic(false);
+	auto AIAnimation = gameObject->AddComponent<XYZEngine::AIAnimationComponent>();
+    AIAnimation->Initialize(6.f);
+    auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+	collider->SetPadding({ 30.f, 0.f });
+   
+	
+   
+   
+
+  }
+
+   
 
 }
+
+
+
+
+
+
+
+
+

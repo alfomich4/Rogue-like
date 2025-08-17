@@ -34,7 +34,7 @@ namespace XYZEngine
 				sf::FloatRect intersection;
 				if (colliders[i]->bounds.intersects(colliders[j]->bounds, intersection))
 				{
-					if (colliders[i]->isTrigger != colliders[j]->isTrigger)
+					/*if (colliders[i]->isTrigger != colliders[j]->isTrigger)
 					{
 						if (triggersEnteredPair.find(colliders[i]) == triggersEnteredPair.end() && triggersEnteredPair.find(colliders[j]) == triggersEnteredPair.end())
 						{
@@ -44,8 +44,8 @@ namespace XYZEngine
 
 							triggersEnteredPair.emplace(colliders[i], colliders[j]);
 						}
-					}
-					else if (!colliders[i]->isTrigger)
+					}*/
+					/*else*/ if (!colliders[i]->isTrigger)
 					{
 						float intersectionWidth = intersection.width;
 						float intersectionHeight = intersection.height;

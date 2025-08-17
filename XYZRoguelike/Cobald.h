@@ -5,12 +5,18 @@
 #include "RenderSystem.h"
 #include "GameObject.h"
 #include "Vector.h"
-class Cobald
+
+namespace XYZRoguelike
 {
-public:
-	Cobald(const XYZEngine::Vector2Df& position);
-	XYZEngine::GameObject* GetGameObject();
-private:
-	XYZEngine::GameObject* gameObject;
-};
+	class Cobald
+	{
+	public:
+		Cobald(const XYZEngine::Vector2Df& position, XYZEngine::GameObject* target);
+		XYZEngine::GameObject* GetGameObject();
+		
+	private:
+		XYZEngine::GameObject* gameObject;
+	};
+}
+
 

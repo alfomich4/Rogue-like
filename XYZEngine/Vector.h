@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 namespace XYZEngine
 {
 	template<typename T>
@@ -28,6 +28,22 @@ namespace XYZEngine
 		float DotProduct(const Vector2D<T>& vector)
 		{
 			return x * vector.x + y * vector.y;
+		}
+		float CalculateDistance(const Vector2D<T>& v) const
+		{
+			auto dx = static_cast<float>(x - v.x);
+			auto dy = static_cast<float>(y - v.y);
+			return std::sqrt(dx * dx + dy * dy);
+			
+		}
+		Vector2D Normalize()
+		{
+			float length = GetLength();
+			if (length > 0.0f)
+			{
+				return { x / length, y / length };
+			}
+			return { 0.0f, 0.0f };
 		}
 	};
 
@@ -90,4 +106,6 @@ namespace XYZEngine
 		// decltype deduces type from expression
 		return { static_cast<decltype(U::x)>(v.x), static_cast<decltype(U::y)>(v.y) };
 	}
+
+	
 }
