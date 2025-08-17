@@ -44,6 +44,7 @@ namespace XYZEngine
 	void SpriteColliderComponent::SetPadding(const Vector2Df& p)
 	{
 		padding = p;
+		
 	}
 
 	

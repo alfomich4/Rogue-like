@@ -37,7 +37,7 @@ namespace XYZRoguelike
 		rigidbody->SetKinematic(false);
 
 		auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
-		collider->SetPadding({ 50.f, 0.f });
+		collider->SetPadding({ 30.f, 0.f });
 		
 		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 50.f);
 

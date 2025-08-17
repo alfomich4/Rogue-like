@@ -29,7 +29,7 @@ namespace XYZRoguelike
 	auto AIAnimation = gameObject->AddComponent<XYZEngine::AIAnimationComponent>();
     AIAnimation->Initialize(6.f);
     auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
-	collider->SetPadding({ 65.f, 0.f });
+	collider->SetPadding({ 30.f, 0.f });
    
 	
    

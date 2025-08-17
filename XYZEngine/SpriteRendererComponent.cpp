@@ -60,7 +60,7 @@ namespace XYZEngine
 		auto rect = sprite->getTextureRect();
 		auto scale = sprite->getScale();
 
-		 float width = std::abs(rect.width * scale.x);
+		float width = std::abs(rect.width * scale.x);
 		float height = std::abs(rect.height * scale.y);
 		return  { width, height };
 	}
