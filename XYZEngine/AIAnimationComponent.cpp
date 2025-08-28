@@ -1,5 +1,6 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "AIAnimationComponent.h"
+#include "AttackComponent.h"
 
 namespace XYZEngine
 {
@@ -25,6 +26,44 @@ namespace XYZEngine
 	}
 	void AIAnimationComponent::Update(float deltaTime)
 	{
+		
+		
+		if(AImove->GetDistanceFromTarget() <= meeleeAttackDistance )
+		{
+			
+			
+			renderer->SetTexture(*attackFramesTex[attackFrame]);
+			attackCounter += deltaTime;
+			if (attackCounter > secondsForFrameAttack)
+			{
+				attackCounter = 0;
+				attackFrame++;
+				if (attackFrame == attackFramesTex.size())
+				{
+					attackFrame = 0;
+					didHitThisSwing = false;
+					
+				}
+				
+			}
+			if (!didHitThisSwing && attackFrame == attackHitFrame)
+			{
+				
+				auto target = AImove->GetTarget();
+				
+				auto atk = object->GetComponent<AttackComponent>();
+					
+				atk->Attack(target);    
+
+				didHitThisSwing = true;
+					
+				
+				
+				
+			}
+			return;
+		}
+		
 	
 		if (AImove->IsChasing() == true)
 		{
@@ -55,10 +94,7 @@ namespace XYZEngine
 					idleFrame = 0;
 				}
 			}
-
-
-		
-	}
+		}
 
 
 
@@ -72,28 +108,38 @@ namespace XYZEngine
 	}
 
 
-	void AIAnimationComponent::Initialize(float newFramerate)
+	void AIAnimationComponent::Initialize(float newFramerate,float FramerateAttack)
 	{
 		const auto& name = object->GetName();
-		std::string idleKey, walkKey;
+		std::string idleKey, walkKey,attackKey,hurtKey;
 
 		if (name == "Cobald") 
 		{
 			idleKey = "cobald_idle";
 			walkKey = "cobald_walking";
+			attackKey = "cobald_attacking";
+			attackHitFrame = 3;
+			
 		}
 		else if (name == "Demon") 
 		{
 			idleKey = "demon_idle";
 			walkKey = "demon_walk";
+			attackKey = "demon_attack";
+			hurtKey = "demon_hurt";
+
 		}
 		else if (name == "Medusa")
 		{
 			idleKey = "medusa_idle";
 			walkKey = "medusa_walk";
+			attackKey = "medusa_attack";
+			hurtKey = "medusa_hurt";
+			attackHitFrame = 8;
+
 		}
 
-		idleFramesTex.clear(); walkFramesTex.clear();
+		idleFramesTex.clear(); walkFramesTex.clear(); attackFramesTex.clear();
 
 		for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount(idleKey); i++)
 		{
@@ -105,11 +151,23 @@ namespace XYZEngine
 			walkFramesTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared(walkKey, i));
 		}
 
+		for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount(attackKey); i++)
+		{
+			attackFramesTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared(attackKey, i));
+		}
+
+		
+
+
+
+
+
 	    
 
 
 
 		secondsForFrame = 1.f / newFramerate;
+		secondsForFrameAttack = 1.f / FramerateAttack;
 	}
 }
 

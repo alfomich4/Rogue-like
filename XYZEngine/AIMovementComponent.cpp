@@ -17,9 +17,9 @@ namespace XYZEngine
     {
         Vector2Df positionAI = transform->GetWorldPosition();
         auto targetTransform = objectTarget->GetComponent<TransformComponent>();
-        float distanceFromTarget = positionAI.CalculateDistance(targetTransform->GetWorldPosition());
+        distanceFromTarget = positionAI.CalculateDistance(targetTransform->GetWorldPosition());
 
-        if (distanceFromTarget > viewingRadius)
+        if (distanceFromTarget > viewingRadius || distanceFromTarget < meeleeAttackDistance)
         {
 			chase = false;
             return;
@@ -29,12 +29,12 @@ namespace XYZEngine
        Vector2Df direction = targetTransform->GetWorldPosition() - transform->GetWorldPosition();
        direction = direction.Normalize();
        transform->MoveBy(speed * deltaTime * Vector2Df{ direction.x, direction.y });
-       if (direction.x > 0.9f)
+       if (direction.x > 0.1f)
        {
            spriteRenderer->FlipX(false);
        }
       
-       else if (direction.x < -0.9f)
+       else if (direction.x < -0.1f)
        {
            spriteRenderer->FlipX(true);
        } 
@@ -57,6 +57,7 @@ namespace XYZEngine
 
         speed = newSpeed;
     }
+    
     void AIMovementComponent::SetTarget(GameObject* target)
     {
         if (gameObject)

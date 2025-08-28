@@ -5,12 +5,12 @@ namespace XYZEngine
 {
 	RigidbodyComponent::RigidbodyComponent(GameObject* gameObject) : Component(gameObject)
 	{
-		/*transform = gameObject->GetComponent<TransformComponent>();*/
+		transform = gameObject->GetComponent<TransformComponent>();
 	}
 
 	void RigidbodyComponent::Update(float deltaTime)
 	{
-		/*transform->MoveBy(linearVelocity);
+		transform->MoveBy(linearVelocity);
 		transform->RotateBy(angleVelocity);
 
 		linearVelocity = (1.f - linearDamping * deltaTime) * linearVelocity;
@@ -28,14 +28,14 @@ namespace XYZEngine
 		if (angleVelocity < 0.001f)
 		{
 			angleVelocity = 0.f;
-		}*/
+		}
 	}
 	void RigidbodyComponent::Render()
 	{
 
 	}
 
-	/*void RigidbodyComponent::SetLinearVelocity(Vector2Df newLinearVelocity)
+	void RigidbodyComponent::SetLinearVelocity(Vector2Df newLinearVelocity)
 	{
 		linearVelocity = newLinearVelocity;
 	}
@@ -77,7 +77,7 @@ namespace XYZEngine
 	float RigidbodyComponent::GetAngleDamping() const
 	{
 		return angleDamping;
-	}*/
+	}
 
 	void RigidbodyComponent::SetKinematic(bool newIsKinematic)
 	{

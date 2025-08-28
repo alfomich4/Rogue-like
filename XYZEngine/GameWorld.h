@@ -14,6 +14,10 @@ namespace XYZEngine
 		void FixedUpdate(float deltaTime);
 		void Render();
 		void LateUpdate();
+		bool IsGameOver() const { return gameOver; }
+		void SetGameOver(bool isGameOver) { gameOver = isGameOver; }
+		GameObject* FindObjectByName(const std::string& name);
+
 
 		GameObject* CreateGameObject();
 		GameObject* CreateGameObject(std::string name);
@@ -30,6 +34,7 @@ namespace XYZEngine
 
 		float fixedCounter = 0.f;
 
+		bool gameOver = false;
 		std::vector<GameObject*> gameObjects = {};
 		std::vector<GameObject*> markedToDestroyGameObjects = {};
 

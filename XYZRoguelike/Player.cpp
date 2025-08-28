@@ -6,18 +6,20 @@
 #include <SpriteMovementAnimationComponent.h>
 #include <StatsComponent.h>
 #include <AttackComponent.h>
+#include "GameOverUi.h"
 
 
 
 
 namespace XYZRoguelike
 {
+	
 	Player::Player(const XYZEngine::Vector2Df& position)
 	{
 		gameObject = XYZEngine::GameWorld::Instance()->CreateGameObject("Player");
 		auto transform = gameObject->GetComponent<XYZEngine::TransformComponent>();
 		transform->SetWorldPosition(position);
-
+		
 		auto renderer = gameObject->AddComponent<XYZEngine::SpriteRendererComponent>();
 		renderer->SetTexture(*XYZEngine::ResourceSystem::Instance()->GetTextureMapElementShared("player_idle", 0));
 		renderer->SetPixelSize(100, 100);
@@ -37,17 +39,15 @@ namespace XYZRoguelike
 		rigidbody->SetKinematic(false);
 
 		auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
-		collider->SetPadding({ 30.f, 0.f });
+		collider->SetPadding({ 50.f, 0.f });
 		
-		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 50.f);
+		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 0.f);
 
 		auto attackComponent = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
 
 		auto animator = gameObject->AddComponent<XYZEngine::SpriteMovementAnimationComponent>();
 
-		attackComponent->Initialize(12.f);
-
-		animator->Initialize(6.f);
+		animator->Initialize(6.f,12.f);
 
 	}
 

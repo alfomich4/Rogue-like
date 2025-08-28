@@ -4,6 +4,8 @@
 #include <SpriteDirectionComponent.h>
 #include <AIMovementComponent.h>
 #include <AIAnimationComponent.h>
+#include <AttackComponent.h>
+
 
 
 
@@ -27,10 +29,13 @@ namespace XYZRoguelike
     auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
     rigidbody->SetKinematic(false);
 	auto AIAnimation = gameObject->AddComponent<XYZEngine::AIAnimationComponent>();
-    AIAnimation->Initialize(6.f);
+    AIAnimation->Initialize(6.f,5.f);
     auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
-	collider->SetPadding({ 30.f, 0.f });
+	collider->SetPadding({ 50.f, 0.f });
+    auto attack = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
+    auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 0.f);
    
+  
 	
    
    

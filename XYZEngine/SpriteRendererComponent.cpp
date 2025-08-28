@@ -29,6 +29,7 @@ namespace XYZEngine
 	{
 		if (sprite != nullptr)
 		{
+			
 			sprite->setPosition(Convert<sf::Vector2f, Vector2Df>(transform->GetWorldPosition()));
 			sprite->setRotation(transform->GetWorldRotation());
 
