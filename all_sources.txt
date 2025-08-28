@@ -25777,6 +25777,151 @@ int main()
 
 	return 0;
 }
+#include "pch.h"
+#include "AIAnimationComponent.h"
+
+namespace XYZEngine
+{
+
+
+	AIAnimationComponent::AIAnimationComponent(GameObject* gameObject) :Component(gameObject)
+	{
+		AImove = gameObject->GetComponent<AIMovementComponent>();
+		renderer = gameObject->GetComponent<SpriteRendererComponent>();
+		object = gameObject;
+		
+		if (AImove == nullptr)
+		{
+			std::cout << "Need AIMovement component for AI Animation" << std::endl;
+			gameObject->RemoveComponent(this);
+		}
+		else if (renderer == nullptr)
+		{
+			std::cout << "Need SpriteRenderer component for AI Animation" << std::endl;
+			gameObject->RemoveComponent(this);
+		}
+
+	}
+	void AIAnimationComponent::Update(float deltaTime)
+	{
+	
+		if (AImove->IsChasing() == true)
+		{
+			renderer->SetTexture(*walkFramesTex[walkFrame]);
+			walkCounter += deltaTime;
+			if (walkCounter > secondsForFrame)
+			{
+				walkCounter = 0;
+				walkFrame++;
+				if (walkFrame == walkFramesTex.size())
+				{
+					walkFrame = 0;
+				}
+
+
+			}
+		}
+		else
+		{
+			renderer->SetTexture(*idleFramesTex[idleFrame]);
+			idleCounter += deltaTime;
+			if (idleCounter > secondsForFrame)
+			{
+				idleCounter = 0;
+				idleFrame++;
+				if (idleFrame == idleFramesTex.size())
+				{
+					idleFrame = 0;
+				}
+			}
+
+
+		
+	}
+
+
+
+
+
+	}
+
+	void AIAnimationComponent::Render()
+	{
+
+	}
+
+
+	void AIAnimationComponent::Initialize(float newFramerate)
+	{
+		const auto& name = object->GetName();
+		std::string idleKey, walkKey;
+
+		if (name == "Cobald") 
+		{
+			idleKey = "cobald_idle";
+			walkKey = "cobald_walking";
+		}
+		else if (name == "Demon") 
+		{
+			idleKey = "demon_idle";
+			walkKey = "demon_walk";
+		}
+		else if (name == "Medusa")
+		{
+			idleKey = "medusa_idle";
+			walkKey = "medusa_walk";
+		}
+
+		idleFramesTex.clear(); walkFramesTex.clear();
+
+		for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount(idleKey); i++)
+		{
+			idleFramesTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared(idleKey, i));
+		}
+
+		for (int i = 0; i < ResourceSystem::Instance()->GetTextureMapElementsCount(walkKey); i++)
+		{
+			walkFramesTex.push_back(ResourceSystem::Instance()->GetTextureMapElementShared(walkKey, i));
+		}
+
+	    
+
+
+
+		secondsForFrame = 1.f / newFramerate;
+	}
+}
+
+#pragma once
+#include "GameObject.h"
+#include "ResourceSystem.h"
+#include "AIMovementComponent.h"
+namespace XYZEngine
+{
+	class AIAnimationComponent :public Component
+	{   
+	public:
+		AIAnimationComponent(GameObject* gameObject);
+		void Initialize(float newFramerate);
+		void Update(float deltaTime) override;
+		void Render() override;
+		
+	private:
+		AIMovementComponent* AImove = nullptr;
+		SpriteRendererComponent* renderer = nullptr;
+		GameObject* object = nullptr;
+		std::vector<const sf::Texture*> idleFramesTex;
+		std::vector<const sf::Texture*> walkFramesTex;
+		float secondsForFrame = 0.f;
+		float walkCounter = 0.f;
+		float idleCounter = 0.f;
+		int walkFrame = 0;
+		int idleFrame = 0;
+		
+	};
+}
+
+
 #pragma once
 #include "GameObject.h"
 namespace XYZEngine
@@ -25830,19 +25975,20 @@ namespace XYZEngine
 
         if (distanceFromTarget > viewingRadius)
         {
+			chase = false;
             return;
         }
-
+		chase = true;
        
        Vector2Df direction = targetTransform->GetWorldPosition() - transform->GetWorldPosition();
        direction = direction.Normalize();
        transform->MoveBy(speed * deltaTime * Vector2Df{ direction.x, direction.y });
-       if (direction.x > 0.10f)
+       if (direction.x > 0.9f)
        {
            spriteRenderer->FlipX(false);
        }
       
-       else if (direction.x < -0.10f)
+       else if (direction.x < -0.9f)
        {
            spriteRenderer->FlipX(true);
        } 
@@ -25891,15 +26037,18 @@ namespace XYZEngine
        void SetSpeed(float newSpeed);
         float GetSpeed() const;
         float GetAccelerationSquared() const;
+        bool IsChasing() const { return chase; }
         void SetTarget(GameObject* target);
+       
 
     protected:
         TransformComponent* transform = nullptr;
         GameObject* objectTarget = nullptr;
         SpriteRendererComponent* spriteRenderer = nullptr; 
-
+       
         float speed = 0;
         float viewingRadius = 300.f;
+        bool chase = true;
         Vector2Df previousPosition = { 0, 0 };
         Vector2Df acceleration = { 0, 0 };
     };
@@ -25911,7 +26060,7 @@ XYZEngine::AttackComponent::AttackComponent(GameObject* gameObject, float attack
 {
 	input = gameObject->GetComponent<InputComponent>();
 	renderer = gameObject->GetComponent<SpriteRendererComponent>();
-
+	
 }
 
 void XYZEngine::AttackComponent::Update(float deltaTime)
@@ -25967,7 +26116,7 @@ namespace XYZEngine
     class AttackComponent : public Component
     {
     public:
-        /* AttackComponent(GameObject* gameObject,float attackPower):Component(gameObject), attackPower(attackPower) {};*/
+       
         void Initialize(float newFramerate);
         AttackComponent(GameObject* gameObject, float attackPower);
         float GetAttackPower() const { return attackPower; }
@@ -27391,7 +27540,7 @@ namespace XYZEngine
 				sf::FloatRect intersection;
 				if (colliders[i]->bounds.intersects(colliders[j]->bounds, intersection))
 				{
-					if (colliders[i]->isTrigger != colliders[j]->isTrigger)
+					/*if (colliders[i]->isTrigger != colliders[j]->isTrigger)
 					{
 						if (triggersEnteredPair.find(colliders[i]) == triggersEnteredPair.end() && triggersEnteredPair.find(colliders[j]) == triggersEnteredPair.end())
 						{
@@ -27401,8 +27550,8 @@ namespace XYZEngine
 
 							triggersEnteredPair.emplace(colliders[i], colliders[j]);
 						}
-					}
-					else if (!colliders[i]->isTrigger)
+					}*/
+					/*else*/ if (!colliders[i]->isTrigger)
 					{
 						float intersectionWidth = intersection.width;
 						float intersectionHeight = intersection.height;
@@ -27830,12 +27979,12 @@ namespace XYZEngine
 {
 	RigidbodyComponent::RigidbodyComponent(GameObject* gameObject) : Component(gameObject)
 	{
-		transform = gameObject->GetComponent<TransformComponent>();
+		/*transform = gameObject->GetComponent<TransformComponent>();*/
 	}
 
 	void RigidbodyComponent::Update(float deltaTime)
 	{
-		transform->MoveBy(linearVelocity);
+		/*transform->MoveBy(linearVelocity);
 		transform->RotateBy(angleVelocity);
 
 		linearVelocity = (1.f - linearDamping * deltaTime) * linearVelocity;
@@ -27853,14 +28002,14 @@ namespace XYZEngine
 		if (angleVelocity < 0.001f)
 		{
 			angleVelocity = 0.f;
-		}
+		}*/
 	}
 	void RigidbodyComponent::Render()
 	{
 
 	}
 
-	void RigidbodyComponent::SetLinearVelocity(Vector2Df newLinearVelocity)
+	/*void RigidbodyComponent::SetLinearVelocity(Vector2Df newLinearVelocity)
 	{
 		linearVelocity = newLinearVelocity;
 	}
@@ -27902,7 +28051,7 @@ namespace XYZEngine
 	float RigidbodyComponent::GetAngleDamping() const
 	{
 		return angleDamping;
-	}
+	}*/
 
 	void RigidbodyComponent::SetKinematic(bool newIsKinematic)
 	{
@@ -27944,7 +28093,7 @@ namespace XYZEngine
 		void SetKinematic(bool newIsKinematic);
 		bool GetKinematic() const;
 	private:
-		TransformComponent* transform;
+		/*TransformComponent* transform;*/
 
 		Vector2Df linearVelocity = { 0.f, 0.f };
 		float angleVelocity = 0.f;
@@ -28077,14 +28226,14 @@ namespace XYZEngine
 {
 	SpriteColliderComponent::SpriteColliderComponent(GameObject* gameObject) : ColliderComponent(gameObject)
 	{
-		auto spriteRenderer = gameObject->GetComponent<SpriteRendererComponent>();
+		spriteRenderer = gameObject->GetComponent<SpriteRendererComponent>();
 		if (spriteRenderer == nullptr)
 		{
 			std::cout << "SpriteRenderer required to SpriteCollider." << std::endl;
 			gameObject->RemoveComponent(this);
 			return;
 		}
-
+		transform = gameObject->GetComponent<TransformComponent>();
 		sprite = gameObject->GetComponent<SpriteRendererComponent>()->GetSprite();
 		PhysicsSystem::Instance()->Subscribe(this);
 	}
@@ -28100,6 +28249,7 @@ namespace XYZEngine
 	void SpriteColliderComponent::Update(float deltaTime)
 	{
 		bounds = sprite->getGlobalBounds();
+		RecalcBounds();
 	}
 	void SpriteColliderComponent::Render()
 	{
@@ -28111,6 +28261,34 @@ namespace XYZEngine
 
 		RenderSystem::Instance()->Render(rectangle);
 	}
+
+	void SpriteColliderComponent::SetPadding(const Vector2Df& p)
+	{
+		padding = p;
+		
+	}
+
+	
+
+	void SpriteColliderComponent::SetOffset(const Vector2Df& o)
+	{
+		offset = o;
+	}
+
+	void SpriteColliderComponent::RecalcBounds()
+	{
+		Vector2Df px = spriteRenderer->GetPixelSize();
+
+		float width = std::max(0.f, px.x - padding.x);
+		float height = std::max(0.f, px.y - padding.y);
+
+		Vector2Df c = transform->GetWorldPosition();
+		bounds.width = width;
+		bounds.height = height;
+		bounds.left = c.x - 0.5f * width + offset.x;
+		bounds.top = c.y - 0.5f * height + offset.y;
+		
+	}
 }#pragma once
 
 #include "ColliderComponent.h"
@@ -28120,6 +28298,8 @@ namespace XYZEngine
 
 namespace XYZEngine
 {
+	
+
 	class SpriteColliderComponent : public ColliderComponent
 	{
 	public:
@@ -28128,8 +28308,17 @@ namespace XYZEngine
 
 		void Update(float deltaTime) override;
 		void Render() override;
+		void SetPadding(const Vector2Df& p);
+		void SetOffset(const Vector2Df& o);
+		void RecalcBounds();
 	private:
 		const sf::Sprite* sprite;
+		Vector2Df padding{ 0.f, 0.f };
+		Vector2Df offset{ 0.f, 0.f };
+		TransformComponent* transform= nullptr ;
+		SpriteRendererComponent* spriteRenderer = nullptr;
+		
+		
 	};
 }
 
@@ -28334,6 +28523,7 @@ namespace XYZEngine
 		scale = { 1, -1 };
 		sprite->setScale({ 1, -1 });
 		transform = gameObject->GetComponent<TransformComponent>();
+		
 	}
 	SpriteRendererComponent::~SpriteRendererComponent()
 	{
@@ -28376,12 +28566,24 @@ namespace XYZEngine
 		scale = { (float)newWidth / (float)originalSize.x, -(float)newHeight / (float)originalSize.y };
 	}
 
+	Vector2Df SpriteRendererComponent::GetPixelSize() const
+	{
+		
+		auto rect = sprite->getTextureRect();
+		auto scale = sprite->getScale();
+
+		float width = std::abs(rect.width * scale.x);
+		float height = std::abs(rect.height * scale.y);
+		return  { width, height };
+	}
+
 	void SpriteRendererComponent::FlipX(bool flip)
 	{
 		if (flip != isFlipX)
 		{
 			scale = { -scale.x, scale.y };
 			isFlipX = flip;
+			
 		}
 	}
 	void SpriteRendererComponent::FlipY(bool flip)
@@ -28390,6 +28592,7 @@ namespace XYZEngine
 		{
 			scale = { scale.x, -scale.y };
 			isFlipY = flip;
+		
 		}
 	}
 }#pragma once
@@ -28415,16 +28618,20 @@ namespace XYZEngine
 		const sf::Sprite* GetSprite() const;
 		void SetTexture(const sf::Texture& newTexture);
 		void SetPixelSize(int newWidth, int newHeight);
+		Vector2Df GetPixelSize()const;
 
 		void FlipX(bool flip);
 		void FlipY(bool flip);
+		
 	private:
 		Vector2Df scale;
 		sf::Sprite* sprite;
 		TransformComponent* transform;
-
+		
+		
 		bool isFlipX = false;
 		bool isFlipY = false;
+		
 	};
 }#include "pch.h"
 #include "StatsComponent.h"
@@ -29004,10 +29211,11 @@ namespace XYZEngine
 #include <SpriteColliderComponent.h>
 #include <SpriteDirectionComponent.h>
 #include <AIMovementComponent.h>
+#include <AIAnimationComponent.h>
 
 
 
-class DeveloperLevel;
+
 
 namespace XYZRoguelike
 { 
@@ -29024,6 +29232,15 @@ namespace XYZRoguelike
     auto movement = gameObject->AddComponent<XYZEngine::AIMovementComponent>();
 	movement->SetSpeed(100.f);
     movement->SetTarget(target);
+    auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
+    rigidbody->SetKinematic(false);
+	auto AIAnimation = gameObject->AddComponent<XYZEngine::AIAnimationComponent>();
+    AIAnimation->Initialize(6.f);
+    auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+	collider->SetPadding({ 30.f, 0.f });
+   
+	
+   
    
 
   }
@@ -29031,6 +29248,9 @@ namespace XYZRoguelike
    
 
 }
+
+
+
 
 
 
@@ -29068,8 +29288,8 @@ namespace XYZRoguelike
 {
 	void DeveloperLevel::Start()
 	{
-		int width = 4;
-		int height = 4;
+		int width = 10;
+		int height = 10;
 
 		for (int y = 0; y < height + 1; y++)
 		{
@@ -29134,7 +29354,7 @@ namespace XYZRoguelike
 		}
 
 		player = std::make_unique<Player>(std::forward<XYZEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }));
-		cobald = std::make_unique<Cobald>(std::forward<XYZEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }), player->GetGameObject());
+		cobald = std::make_unique<Cobald>(std::forward<XYZEngine::Vector2Df>({ 4/ 2 * 128.f, height / 2 * 128.f }), player->GetGameObject());
 		music = std::make_unique<Music>("GamePlaymusic");
 	}
 	void DeveloperLevel::Restart()
@@ -29230,6 +29450,7 @@ int main()
 	ResourceSystem::Instance()->LoadTextureMap("level_floors", "Resources/TextureMaps/Floor.png", { 16, 16 }, 49, false);
 	ResourceSystem::Instance()->LoadTextureMap("level_walls", "Resources/TextureMaps/Wall.png", { 16, 16 }, 48, false);
 	ResourceSystem::Instance()->LoadTextureMap("cobald_idle", "Resources/TextureMaps/idleCob.png", { 148, 96 }, 6, false);
+	ResourceSystem::Instance()->LoadTextureMap("cobald_walking", "Resources/TextureMaps/RUN.png", { 148, 96 }, 8, false);
 
 	ResourceSystem::Instance()->LoadSound("GamePlaymusic", "Resources/Sounds/trapped.wav");
 
@@ -29439,7 +29660,9 @@ namespace XYZRoguelike
 		auto rigidbody = gameObject->AddComponent<XYZEngine::RigidbodyComponent>();
 		rigidbody->SetKinematic(false);
 
-		/*auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();*/
+		auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+		collider->SetPadding({ 30.f, 0.f });
+		
 		auto statsComponent = gameObject->AddComponent<XYZEngine::StatsComponent>(100.f, 50.f);
 
 		auto attackComponent = gameObject->AddComponent<XYZEngine::AttackComponent>(10.f);
@@ -29544,6 +29767,8 @@ XYZRoguelike::Wall::Wall(const XYZEngine::Vector2Df position, int textureMapInde
 	rigidbody->SetKinematic(true);
 
 	auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
+	collider->SetPadding({ 35.f, 0.f });
+	
 }
 #pragma once
 

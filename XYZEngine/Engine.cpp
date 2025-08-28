@@ -3,6 +3,8 @@
 #include <iostream>
 #include "GameWorld.h"
 #include "RenderSystem.h"
+#include "GameOverUi.h"
+
 
 namespace XYZEngine
 {
@@ -19,11 +21,15 @@ namespace XYZEngine
 
 		setupLogger();
 	}
-
+	
 	void Engine::Run()
 	{
 		sf::Clock gameClock;
 		sf::Event event;
+		GameOverUi gameOverUi;
+		InitUI(gameOverUi);
+		
+		
 
 		LOG_INFO("Program was started!");
 		
@@ -44,6 +50,13 @@ namespace XYZEngine
 			{
 				break;
 			}
+			if (!gameOverUi.targetTransform) 
+			{
+				if (auto* playerGO = XYZEngine::GameWorld::Instance()->FindObjectByName("Player")) 
+				{
+					AttachTextToPlayer(gameOverUi, playerGO);
+				}
+			}
 
 			RenderSystem::Instance()->GetMainWindow().clear();
 
@@ -51,6 +64,8 @@ namespace XYZEngine
 			GameWorld::Instance()->FixedUpdate(deltaTime);
 			GameWorld::Instance()->Render();
 			GameWorld::Instance()->LateUpdate();
+			UpdateUI(gameOverUi, deltaTime);
+			DrawUI(gameOverUi, RenderSystem::Instance()->GetMainWindow());
 
 			RenderSystem::Instance()->GetMainWindow().display();
 		}

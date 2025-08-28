@@ -3,6 +3,8 @@
 #include "MovementComponent.h"
 #include "SpriteRendererComponent.h"
 #include "ResourceSystem.h"
+#include "StatsComponent.h"
+
 
 
 
@@ -15,23 +17,31 @@ namespace XYZEngine
 		SpriteMovementAnimationComponent(GameObject* gameObject);
 
 
-		void Initialize(float newFramerate);
+		void Initialize(float newFramerate,float FramerateAttack);
 
 		void Update(float deltaTime) override;
 		void Render() override;
 	private:
 		MovementComponent* movement;
 		SpriteRendererComponent* renderer;
-		AttackComponent* attackComp;
-
+		InputComponent* input;
+		StatsComponent* stats = nullptr;
+		bool isAttacking = false;
+		
 
 		std::vector<const sf::Texture*> playerWalkTex;
 		std::vector<const sf::Texture*> playerIdleTex;
+		std::vector<const sf::Texture*> playerAttackTex;
+		std::vector<const sf::Texture*> playerHurtTex;
+		std::vector<const sf::Texture*> playerDeathTex;
 		float secondsForFrame = 0.f;
-		float walkCounter = 0.f;
-		float idleCounter = 0.f;
+		float secondsForFrameAttack = 0.f;
+		float counter = 0.f;
+		int attackFrame = 0;
 		int walkFrame = 0;
 		int idleFrame = 0;
+		int hurtFrame = 0;
+		int deathFrame = 0;
 
 
 	};

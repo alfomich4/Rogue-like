@@ -26,7 +26,9 @@ namespace XYZEngine
 		localPosition.x += offsetX;
 		localPosition.y += offsetY;
 		isUpdated = false;
+		
 	}
+	
 	void TransformComponent::SetWorldPosition(const Vector2Df& position)
 	{
 		SetWorldPosition(position.x, position.y);

@@ -81,15 +81,15 @@ namespace XYZEngine
 							}
 						}
 
-						auto collision = new Collision(colliders[i], colliders[j], intersection);
+						/*auto collision = new Collision(colliders[i], colliders[j], intersection);
 						colliders[i]->OnCollision(*collision);
-						colliders[j]->OnCollision(*collision);
+						colliders[j]->OnCollision(*collision);*/
 					}
 				}
 			}
 		}
 
-		for (auto triggeredPair = triggersEnteredPair.cbegin(), nextTriggeredPair = triggeredPair; triggeredPair != triggersEnteredPair.cend(); triggeredPair = nextTriggeredPair)
+		/*for (auto triggeredPair = triggersEnteredPair.cbegin(), nextTriggeredPair = triggeredPair; triggeredPair != triggersEnteredPair.cend(); triggeredPair = nextTriggeredPair)
 		{
 			++nextTriggeredPair;
 			if (!triggeredPair->first->bounds.intersects(triggeredPair->second->bounds))
@@ -100,7 +100,7 @@ namespace XYZEngine
 
 				triggersEnteredPair.erase(triggeredPair);
 			}
-		}
+		}*/
 	}
 
 	void PhysicsSystem::Subscribe(ColliderComponent* collider)

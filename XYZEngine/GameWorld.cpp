@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameWorld.h"
 
+
 namespace XYZEngine
 {
 	GameWorld* GameWorld::Instance()
@@ -11,6 +12,11 @@ namespace XYZEngine
 
 	void GameWorld::Update(float deltaTime)
 	{
+		if (gameOver)
+		{
+			return;
+		}
+
 		for (int i = 0; i < gameObjects.size(); i++)
 		{
 			gameObjects[i]->Update(deltaTime);
@@ -38,6 +44,22 @@ namespace XYZEngine
 		{
 			DestroyGameObjectImmediate(markedToDestroyGameObjects[i]);
 		}
+	}
+
+	GameObject* GameWorld::FindObjectByName(const std::string& name)
+	{
+		for (auto* object : gameObjects) 
+		{
+			if (!object) continue;
+			if (object->GetName() == name)
+			{
+				
+				
+				
+				return object;
+			}
+		}
+		return nullptr;
 	}
 
 	GameObject* GameWorld::CreateGameObject()
