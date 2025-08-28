@@ -94,3 +94,5 @@ XYZRoguelike\x64\Debug\XYZRoguelike.exe (или x64\Debug\XYZRoguelike.exe — �
 
 • MIT .
 
+
+
