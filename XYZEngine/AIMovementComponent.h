@@ -29,7 +29,6 @@ namespace XYZEngine
         float viewingRadius = 300.f;
 		float meeleeAttackDistance = 55.f;
         bool chase = true;
-        Vector2Df previousPosition = { 0, 0 };
-        Vector2Df acceleration = { 0, 0 };
+       
     };
 }

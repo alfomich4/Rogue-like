@@ -33,7 +33,7 @@ namespace XYZEngine
 		{
 			currentHealth = 0;
 		}
-		LOG_INFO("Healed:" + std::to_string(damage) + "damage,current health:" + std::to_string(currentHealth));
+		LOG_INFO("Hit:" + std::to_string(damage) + " damage,current health:" + std::to_string(currentHealth));
 		hurtTimer = 0.40f;
 		if (currentHealth <= 0)
 		{
@@ -50,6 +50,16 @@ namespace XYZEngine
 			currentHealth = maxHealth;
 		}
 		LOG_INFO("Healed:" + std::to_string(amount) + "Health,current health:" + std::to_string(currentHealth));
+	}
+
+	void StatsComponent::AddArmor(float amount)
+	{
+		armor += amount; 
+	    if (armor > maxArmor) 
+		{ 
+			armor = maxArmor; 
+		} 
+		LOG_INFO("Picked up armor:" + std::to_string(amount) + ", current armor:" + std::to_string(armor)); 
 	}
 
 

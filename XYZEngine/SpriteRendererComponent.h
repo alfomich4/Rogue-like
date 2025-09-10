@@ -17,7 +17,7 @@ namespace XYZEngine
 
 		void Update(float deltaTime) override;
 		void Render() override;
-
+        sf::Sprite* GetSprite() { return sprite; }
 		const sf::Sprite* GetSprite() const;
 		void SetTexture(const sf::Texture& newTexture);
 		void SetPixelSize(int newWidth, int newHeight);

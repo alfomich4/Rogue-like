@@ -8,6 +8,10 @@
 #include "Music.h"
 #include "Floor.h"
 #include "Wall.h"
+#include"HealthPickup.h"
+#include"ArmorPickup.h"
+#include"HealthBar.h"
+#include"ArmorBar.h"
 
 using namespace XYZEngine;
 
@@ -24,6 +28,10 @@ namespace XYZRoguelike
 		std::unique_ptr<Player> player;
 		std::unique_ptr<Cobald> cobald;
 		std::unique_ptr<Music> music;
+        std::unique_ptr <HealthPickup> healthPickup;
+        std::unique_ptr<ArmorPickup> armorPickup;
+		std::unique_ptr<HealthBar>healthBar;
+		std::unique_ptr<ArmorBar>armorBar;
 
 		std::vector<std::unique_ptr<Wall>> walls;
 		std::vector<std::unique_ptr<Floor>> floors;
