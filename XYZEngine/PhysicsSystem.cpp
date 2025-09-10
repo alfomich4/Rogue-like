@@ -34,7 +34,7 @@ namespace XYZEngine
 				sf::FloatRect intersection;
 				if (colliders[i]->bounds.intersects(colliders[j]->bounds, intersection))
 				{
-					/*if (colliders[i]->isTrigger != colliders[j]->isTrigger)
+					if (colliders[i]->isTrigger != colliders[j]->isTrigger)
 					{
 						if (triggersEnteredPair.find(colliders[i]) == triggersEnteredPair.end() && triggersEnteredPair.find(colliders[j]) == triggersEnteredPair.end())
 						{
@@ -44,8 +44,8 @@ namespace XYZEngine
 
 							triggersEnteredPair.emplace(colliders[i], colliders[j]);
 						}
-					}*/
-					/*else*/ if (!colliders[i]->isTrigger)
+					}
+					else if (!colliders[i]->isTrigger)
 					{
 						float intersectionWidth = intersection.width;
 						float intersectionHeight = intersection.height;
@@ -81,15 +81,15 @@ namespace XYZEngine
 							}
 						}
 
-						/*auto collision = new Collision(colliders[i], colliders[j], intersection);
+						auto collision = new Collision(colliders[i], colliders[j], intersection);
 						colliders[i]->OnCollision(*collision);
-						colliders[j]->OnCollision(*collision);*/
+						colliders[j]->OnCollision(*collision);
 					}
 				}
 			}
 		}
 
-		/*for (auto triggeredPair = triggersEnteredPair.cbegin(), nextTriggeredPair = triggeredPair; triggeredPair != triggersEnteredPair.cend(); triggeredPair = nextTriggeredPair)
+		for (auto triggeredPair = triggersEnteredPair.cbegin(), nextTriggeredPair = triggeredPair; triggeredPair != triggersEnteredPair.cend(); triggeredPair = nextTriggeredPair)
 		{
 			++nextTriggeredPair;
 			if (!triggeredPair->first->bounds.intersects(triggeredPair->second->bounds))
@@ -100,7 +100,7 @@ namespace XYZEngine
 
 				triggersEnteredPair.erase(triggeredPair);
 			}
-		}*/
+		}
 	}
 
 	void PhysicsSystem::Subscribe(ColliderComponent* collider)

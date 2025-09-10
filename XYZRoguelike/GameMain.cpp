@@ -25,9 +25,14 @@ int main()
 	ResourceSystem::Instance()->LoadTextureMap("level_walls", "Resources/TextureMaps/Wall.png", { 16, 16 }, 48, false);
 	ResourceSystem::Instance()->LoadTextureMap("cobald_idle", "Resources/TextureMaps/idleCob.png", { 148, 96 }, 6, false);
 	ResourceSystem::Instance()->LoadTextureMap("cobald_walking", "Resources/TextureMaps/RUN.png", { 148, 96 }, 8, false);
-	ResourceSystem::Instance()->LoadTextureMap("cobald_attacking", "Resources/TextureMaps/Attack1.png", { 148, 96 }, 5, false);
+	ResourceSystem::Instance()->LoadTextureMap("cobald_attacking", "Resources/TextureMaps/Attack1.png", { 158, 96 }, 5, false);
+    ResourceSystem::Instance()->LoadTextureMap("health_item", "Resources/TextureMaps/Spritesheet.png", {50, 114},10, false);
+	ResourceSystem::Instance()->LoadTextureMap("armor_item", "Resources/TextureMaps/armor.png", {32, 32},1, false);
+	ResourceSystem::Instance()->LoadTextureMap("health_bar", "Resources/TextureMaps/HealthBar.png", {700, 200},10, false);
+	ResourceSystem::Instance()->LoadTextureMap("armor_bar", "Resources/TextureMaps/armorBar.png", {32, 32},1, false);
 
 	ResourceSystem::Instance()->LoadSound("GamePlaymusic", "Resources/Sounds/trapped.wav");
+  
 
 	auto developerLevel = std::make_shared<DeveloperLevel>();
 	developerLevel->Start();

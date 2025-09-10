@@ -159,18 +159,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArmorPickup.cpp" />
     <ClCompile Include="Cobald.cpp" />
     <ClCompile Include="DeveloperLevel.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="ArmorBar.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="HealthPickup.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArmorPickup.h" />
     <ClInclude Include="Cobald.h" />
     <ClInclude Include="DeveloperLevel.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="ArmorBar.h" />
+    <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="HealthPickup.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector.h" />

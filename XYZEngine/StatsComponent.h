@@ -19,11 +19,15 @@ namespace XYZEngine
 		void Render() override {  }
 		void TakeDamage(float damage);
 		void Heal(float amount);
+		void AddArmor(float amount);
+		
+		
 		
 	private:
 		float maxHealth;
 		float currentHealth;
 		float armor;
+        float maxArmor=100;
 		float hurtTimer = 0.f;
 		bool isDead = false;
 		

@@ -7,8 +7,9 @@ namespace XYZEngine
 	{
 	public:
 		Trigger(ColliderComponent* newFirst, ColliderComponent* newSecond) :
-			first(newFirst), second(newSecond) {
-		};
+			first(newFirst), second(newSecond){};
+         ColliderComponent* GetFirst() const { return first; }
+         ColliderComponent* GetSecond() const { return second; }
 	private:
 		ColliderComponent* first;
 		ColliderComponent* second;

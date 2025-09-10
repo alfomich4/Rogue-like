@@ -15,6 +15,7 @@ namespace XYZEngine
 		ui.gameOverText.setString("GAME OVER");
 		ui.gameOverText.setScale(1.f, -1.f);
 		
+		
 
 	}
 	void AttachTextToPlayer(GameOverUi& ui, GameObject* player)
@@ -57,11 +58,10 @@ namespace XYZEngine
 			return;
 		}
 		const auto wp = ui.targetTransform->GetWorldPosition(); // Vector2Df {x,y}
-		sf::Vector2f pos{ wp.x, wp.y };
 		float offset = 100.f; 
 		auto lb = ui.gameOverText.getLocalBounds();
 		ui.gameOverText.setOrigin(lb.left + lb.width * 0.5f, lb.top + lb.height); 
-		ui.gameOverText.setPosition(pos.x, pos.y + offset);
+		ui.gameOverText.setPosition(wp.x, wp.y + offset);
 
 		window.draw(ui.gameOverText);
 	
