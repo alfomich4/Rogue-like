@@ -148,6 +148,7 @@
     <ClInclude Include="AIMovementComponent.h" />
     <ClInclude Include="AttackComponent.h" />
     <ClInclude Include="AudioComponent.h" />
+    <ClInclude Include="AudioSFX.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="AIMovementComponent.cpp" />
     <ClCompile Include="AttackComponent.cpp" />
     <ClCompile Include="AudioComponent.cpp" />
+    <ClCompile Include="AudioSFX.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />

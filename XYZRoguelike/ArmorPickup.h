@@ -10,15 +10,13 @@
 
 namespace XYZRoguelike
 {
-class ArmorPickup 
+class ArmorPickup
 {
-public:
-	ArmorPickup(const XYZEngine::Vector2Df& position, XYZEngine::GameObject* target);
-	XYZEngine::GameObject* GetGameObject();
+  public:
+    ArmorPickup(const XYZEngine::Vector2Df &position, XYZEngine::GameObject *target);
+    XYZEngine::GameObject *GetGameObject();
 
-private:
-	XYZEngine::GameObject* gameObject;
- 
+  private:
+    XYZEngine::GameObject *gameObject;
 };
-} 
-
+} // namespace XYZRoguelike

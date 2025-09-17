@@ -12,43 +12,42 @@ const std::string RESOURCES_PATH = "Resources/";
 int main()
 {
 
+    if (AllocConsole())
+    {
+        FILE *fp;
+        freopen_s(&fp, "CONOUT$", "w", stdout);
+        freopen_s(&fp, "CONOUT$", "w", stderr);
+    }
+    else
+    {
+        std::cerr << "Failed to allocate console." << std::endl;
+        return -1;
+    }
+    Engine engine;
+    engine.Initialize();
+    engine.Run();
+    sf::RenderWindow window(sf::VideoMode(330, 400), "SFML works!");
 
-	if (AllocConsole())
-	{
-		FILE* fp;
-		freopen_s(&fp, "CONOUT$", "w", stdout);
-		freopen_s(&fp, "CONOUT$", "w", stderr);
-	}
-	else
-	{
-		std::cerr << "Failed to allocate console." << std::endl;
-		return -1;
-	}
-	Engine engine;
-	engine.Initialize();
-	engine.Run();
-	sf::RenderWindow window(sf::VideoMode(330, 400), "SFML works!");
+    sf::Texture logo;
+    if (!logo.loadFromFile(RESOURCES_PATH + "xyz-logo.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    sf::Sprite logo_sprite(logo);
 
-	sf::Texture logo;
-	if (!logo.loadFromFile(RESOURCES_PATH + "xyz-logo.png"))
-	{
-		return EXIT_FAILURE;
-	}
-	sf::Sprite logo_sprite(logo);
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+        window.clear();
+        window.draw(logo_sprite);
+        window.display();
+    }
 
-		window.clear();
-		window.draw(logo_sprite);
-		window.display();
-	}
-
-	return 0;
+    return 0;
 }

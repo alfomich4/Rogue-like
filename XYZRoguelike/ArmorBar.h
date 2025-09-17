@@ -6,23 +6,16 @@
 #include "StatsComponent.h"
 #include "HUDUpdaterComponent.h"
 
-
-namespace XYZRoguelike 
+namespace XYZRoguelike
 {
 class ArmorBar
 {
-public:
-	ArmorBar(const XYZEngine::Vector2Df& position);
-	
-        
-	 
-	
+  public:
+    ArmorBar(const XYZEngine::Vector2Df &position);
 
-private:
-	XYZEngine::GameObject* gameObject;
-    XYZEngine::StatsComponent* playerArmor;
-	
-	
+  private:
+    XYZEngine::GameObject *gameObject;
+    XYZEngine::StatsComponent *playerArmor;
 };
 
-}
+} // namespace XYZRoguelike

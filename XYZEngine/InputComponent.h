@@ -1,26 +1,27 @@
 #pragma once
 
 #include "Component.h"
-#include <SFML/Window.hpp> 
+#include <SFML/Window.hpp>
 
 namespace XYZEngine
 {
-	class InputComponent : public Component
-	{
-	public:
-		InputComponent(GameObject* gameObject);
+class InputComponent : public Component
+{
+  public:
+    InputComponent(GameObject *gameObject);
 
-		void Update(float deltaTime) override;
-		void Render() override;
+    void Update(float deltaTime) override;
+    void Render() override;
 
-		float GetHorizontalAxis() const;
-		float GetVerticalAxis() const;
-		bool IsMousePressed() const;
-	private:
-		float horizontalAxis = 0.f;
-		float verticalAxis = 0.f;
-		bool isMousePressed = false;
-		bool wasMouseDownLastFrame = false;
-		bool mouseClickedThisFrame = false;
-	};
-}
+    float GetHorizontalAxis() const;
+    float GetVerticalAxis() const;
+    bool IsMousePressed() const;
+
+  private:
+    float horizontalAxis = 0.f;
+    float verticalAxis = 0.f;
+    bool isMousePressed = false;
+    bool wasMouseDownLastFrame = false;
+    bool mouseClickedThisFrame = false;
+};
+} // namespace XYZEngine
