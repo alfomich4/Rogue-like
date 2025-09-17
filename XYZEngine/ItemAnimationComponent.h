@@ -7,27 +7,26 @@
 namespace XYZEngine
 {
 
-
-class ItemAnimationComponent : public Component 
+class ItemAnimationComponent : public Component
 {
- public:
-	ItemAnimationComponent(GameObject* gameObject);
+  public:
+    ItemAnimationComponent(GameObject *gameObject);
     void Initialize(float newFramerate);
-	void Update(float deltaTime) override;
+    void Update(float deltaTime) override;
     void Render() override {};
-	void SetTarget(GameObject* target);
+    void SetTarget(GameObject *target);
 
-private:
-	GameObject* object = nullptr;
-	GameObject* objectTarget = nullptr;
-	SpriteRendererComponent* renderer = nullptr;
-    TransformComponent* transform = nullptr;
-    StatsComponent* stats = nullptr;
-	std::vector<const sf::Texture*> itemFramesTex;
+  private:
+    GameObject *object = nullptr;
+    GameObject *objectTarget = nullptr;
+    SpriteRendererComponent *renderer = nullptr;
+    TransformComponent *transform = nullptr;
+    StatsComponent *stats = nullptr;
+    std::vector<const sf::Texture *> itemFramesTex;
     std::string itemKey;
     float secondsForFrame = 0.f;
     float counter = 0.f;
     float pickupDistance = 55.f;
     int heartFrame = 0;
 };
-}  // namespace XYZEngine
+} // namespace XYZEngine

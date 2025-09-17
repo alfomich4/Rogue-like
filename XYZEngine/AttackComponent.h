@@ -5,42 +5,39 @@
 
 namespace XYZEngine
 {
-    class AttackComponent : public Component
+class AttackComponent : public Component
+{
+  public:
+    void Initialize(float newFramerate);
+    AttackComponent(GameObject *gameObject, float attackPower);
+    float GetAttackPower() const
     {
-    public:
-       
-        void Initialize(float newFramerate);
-        AttackComponent(GameObject* gameObject, float attackPower);
-        float GetAttackPower() const { return attackPower; }
-        void SetAttackPower(float newAttackPower) { attackPower = newAttackPower; }
-        void Update(float deltaTime) override;
-        void Render() override {}
-        void Attack(GameObject* target)
+        return attackPower;
+    }
+    void SetAttackPower(float newAttackPower)
+    {
+        attackPower = newAttackPower;
+    }
+    void Update(float deltaTime) override;
+    void Render() override
+    {
+    }
+    void Attack(GameObject *target)
+    {
+
+        if (!target)
         {
-
-            if (!target)
-            {
-                return;
-            }
-            auto targetStatsComponent = target->GetComponent<StatsComponent>();
-            if (targetStatsComponent)
-            {
-                float damage = attackPower;
-                targetStatsComponent->TakeDamage(damage);
-
-
-
-            }
-
+            return;
         }
+        auto targetStatsComponent = target->GetComponent<StatsComponent>();
+        if (targetStatsComponent)
+        {
+            float damage = attackPower;
+            targetStatsComponent->TakeDamage(damage);
+        }
+    }
 
-
-    private:
-        float attackPower = 0.f;
-
-
-
-
-    };
-}
-
+  private:
+    float attackPower = 0.f;
+};
+} // namespace XYZEngine

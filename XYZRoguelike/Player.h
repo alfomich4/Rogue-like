@@ -7,15 +7,15 @@
 #include "InputComponent.h"
 #include "GameObject.h"
 
-
 namespace XYZRoguelike
 {
-	class Player
-	{
-	public:
-		Player(const XYZEngine::Vector2Df& position);
-		XYZEngine::GameObject* GetGameObject();
-	private:
-		XYZEngine::GameObject* gameObject;
-	};
-}
+class Player
+{
+  public:
+    Player(const XYZEngine::Vector2Df &position);
+    XYZEngine::GameObject *GetGameObject();
+
+  private:
+    XYZEngine::GameObject *gameObject;
+};
+} // namespace XYZRoguelike

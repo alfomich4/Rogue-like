@@ -5,39 +5,49 @@
 
 namespace XYZEngine
 {
-	class GameWorld
-	{
-	public:
-		static GameWorld* Instance();
+class GameWorld
+{
+  public:
+    static GameWorld *Instance();
 
-		void Update(float deltaTime);
-		void FixedUpdate(float deltaTime);
-		void Render();
-		void LateUpdate();
-		bool IsGameOver() const { return gameOver; }
-		void SetGameOver(bool isGameOver) { gameOver = isGameOver; }
-		GameObject* FindObjectByName(const std::string& name);
+    void Update(float deltaTime);
+    void FixedUpdate(float deltaTime);
+    void Render();
+    void LateUpdate();
+    bool IsGameOver() const
+    {
+        return gameOver;
+    }
+    void SetGameOver(bool isGameOver)
+    {
+        gameOver = isGameOver;
+    }
+    GameObject *FindObjectByName(const std::string &name);
 
+    GameObject *CreateGameObject();
+    GameObject *CreateGameObject(std::string name);
+    void DestroyGameObject(GameObject *gameObject);
+    void Clear();
 
-		GameObject* CreateGameObject();
-		GameObject* CreateGameObject(std::string name);
-		void DestroyGameObject(GameObject* gameObject);
-		void Clear();
+    void Print() const;
 
-		void Print() const;
-	private:
-		GameWorld() {}
-		~GameWorld() {}
+  private:
+    GameWorld()
+    {
+    }
+    ~GameWorld()
+    {
+    }
 
-		GameWorld(GameWorld const&) = delete;
-		GameWorld& operator= (GameWorld const&) = delete;
+    GameWorld(GameWorld const &) = delete;
+    GameWorld &operator=(GameWorld const &) = delete;
 
-		float fixedCounter = 0.f;
+    float fixedCounter = 0.f;
 
-		bool gameOver = false;
-		std::vector<GameObject*> gameObjects = {};
-		std::vector<GameObject*> markedToDestroyGameObjects = {};
+    bool gameOver = false;
+    std::vector<GameObject *> gameObjects = {};
+    std::vector<GameObject *> markedToDestroyGameObjects = {};
 
-		void DestroyGameObjectImmediate(GameObject* gameObject);
-	};
-}
+    void DestroyGameObjectImmediate(GameObject *gameObject);
+};
+} // namespace XYZEngine

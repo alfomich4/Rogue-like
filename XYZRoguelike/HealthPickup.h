@@ -6,19 +6,15 @@
 #include "ResourceSystem.h"
 #include "ItemAnimationComponent.h"
 
-
 namespace XYZRoguelike
 {
-class HealthPickup 
-  {
- public:
-  HealthPickup(const XYZEngine::Vector2Df& position, XYZEngine::GameObject* target);
-  XYZEngine::GameObject* GetGameObject();
- 
+class HealthPickup
+{
+  public:
+    HealthPickup(const XYZEngine::Vector2Df &position, XYZEngine::GameObject *target);
+    XYZEngine::GameObject *GetGameObject();
 
- private:
-  XYZEngine::GameObject* gameObject;
- 
- 
+  private:
+    XYZEngine::GameObject *gameObject;
 };
-} 
+} // namespace XYZRoguelike
