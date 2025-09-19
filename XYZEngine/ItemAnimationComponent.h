@@ -3,6 +3,7 @@
 #include "ResourceSystem.h"
 #include "SpriteRendererComponent.h"
 #include "StatsComponent.h"
+#include "AudioSFX.h"
 
 namespace XYZEngine
 {

@@ -52,14 +52,14 @@ void ItemAnimationComponent::Update(float deltaTime)
     {
         if (itemKey == "health_item")
         {
-
+            auto tmp = std::make_unique<AudioSFX>("HealthPick");
             stats->Heal(25.f);
             XYZEngine::GameWorld::Instance()->DestroyGameObject(gameObject);
         }
         else if (itemKey == "armor_item")
         {
-
-            stats->AddArmor(25.f);
+            auto tmp = std::make_unique<AudioSFX>("ArmorPick");
+            stats->AddArmor(10.f);
             XYZEngine::GameWorld::Instance()->DestroyGameObject(gameObject);
         }
     }

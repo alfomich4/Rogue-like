@@ -105,16 +105,19 @@ void XYZEngine::SpriteMovementAnimationComponent::Update(float deltaTime)
 
     if (input->IsMousePressed() && !isAttacking)
     {
+        auto tmp = std::make_unique<AudioSFX>("PlayerAttack");
         if (playerAttackTex.empty())
         {
             return;
         }
+
         isAttacking = true;
         renderer->SetTexture(*playerAttackTex[0]);
     }
 
     if (isAttacking && !stats->IsHurt())
     {
+
         renderer->SetTexture(*playerAttackTex[attackFrame]);
         counter += deltaTime;
         if (counter > secondsForFrameAttack)
@@ -130,8 +133,25 @@ void XYZEngine::SpriteMovementAnimationComponent::Update(float deltaTime)
         }
         if (!didHitThisSwing && attackFrame == attackHitFrame)
         {
-            auto *enemy = XYZEngine::GameWorld::Instance()->FindObjectByName("Cobald");
+            auto *selfT = gameObject->GetComponent<TransformComponent>();
+            if (!selfT)
+            { 
+                return;
+            }
+            const auto selfPos = selfT->GetWorldPosition();
+            auto *enemy = XYZEngine::GameWorld::Instance()->FindClosestByName("Cobald", selfPos, meleeAttackDistance);
             if (enemy)
+            {
+                if (auto *atk = gameObject->GetComponent<AttackComponent>())
+                {
+                    atk->Attack(enemy);
+                }
+                didHitThisSwing = true;
+            }
+            return;
+            /* auto *enemy = XYZEngine::GameWorld::Instance()->FindObjectByName("Cobald");*/
+
+            /*if (enemy)
             {
                 auto *selfT = gameObject->GetComponent<TransformComponent>();
                 auto *enemyT = enemy->GetComponent<TransformComponent>();
@@ -148,7 +168,7 @@ void XYZEngine::SpriteMovementAnimationComponent::Update(float deltaTime)
                     }
                 }
             }
-            didHitThisSwing = true;
+            didHitThisSwing = true;*/
         }
         return;
     }

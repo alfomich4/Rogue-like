@@ -36,5 +36,6 @@ class DeveloperLevel : public Scene
 
     std::vector<std::unique_ptr<Wall>> walls;
     std::vector<std::unique_ptr<Floor>> floors;
+    std::vector<std::unique_ptr<Cobald>> enemies;
 };
 } // namespace XYZRoguelike

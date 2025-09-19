@@ -34,7 +34,7 @@ void AIAnimationComponent::Update(float deltaTime)
 
     if (stats->IsDead())
     {
-
+        auto tmp = std::make_unique<AudioSFX>("CobaltDeath");
         XYZEngine::GameWorld::Instance()->DestroyGameObject(gameObject);
         return;
     }

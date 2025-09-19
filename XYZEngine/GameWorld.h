@@ -23,6 +23,7 @@ class GameWorld
         gameOver = isGameOver;
     }
     GameObject *FindObjectByName(const std::string &name);
+    GameObject* FindClosestByName(const std::string& name,const Vector2Df& from,float maxDist);
 
     GameObject *CreateGameObject();
     GameObject *CreateGameObject(std::string name);

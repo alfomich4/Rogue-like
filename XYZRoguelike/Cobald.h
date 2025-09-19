@@ -5,6 +5,7 @@
 #include "RenderSystem.h"
 #include "GameObject.h"
 
+
 namespace XYZRoguelike
 {
 class Cobald

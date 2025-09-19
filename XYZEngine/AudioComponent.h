@@ -23,8 +23,14 @@ class AudioComponent : public Component
     void Stop();
     void Pause();
     void Resume();
+    bool IsPlaying() const
+    {
+        return sound->getStatus() == sf::SoundSource::Playing;
+    }
+   
 
   private:
     sf::Sound *sound;
+   
 };
 } // namespace XYZEngine

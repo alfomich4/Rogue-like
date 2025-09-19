@@ -1,5 +1,7 @@
 #include "DeveloperLevel.h"
 #include "Wall.h"
+#include "randomizer.h"
+
 
 using namespace XYZEngine;
 
@@ -73,12 +75,20 @@ void DeveloperLevel::Start()
     }
 
     player = std::make_unique<Player>(std::forward<XYZEngine::Vector2Df>({width / 2 * 128.f, height / 2 * 128.f}));
-    cobald = std::make_unique<Cobald>(std::forward<XYZEngine::Vector2Df>({4 / 2 * 128.f, height / 2 * 128.f}), player->GetGameObject());
     healthPickup = std::make_unique<HealthPickup>(std::forward<XYZEngine::Vector2Df>({width / 2 * 128.f, 6 / 2 * 128.f}), player->GetGameObject());
     armorPickup = std::make_unique<ArmorPickup>(std::forward<XYZEngine::Vector2Df>({6 / 2 * 128.f, height / 2 * 128.f}), player->GetGameObject());
     healthBar = std::make_unique<HealthBar>(std::forward<XYZEngine::Vector2Df>({width / 2 * 128.f, height / 2 * 128.f}));
     armorBar = std::make_unique<ArmorBar>(std::forward<XYZEngine::Vector2Df>({width / 2 * 128.f, height / 2 * 128.f}));
+    // Создание 5 врагов в случайных позициях
+   for (int i = 0; i < 5; ++i) 
+   {
+    float x = random(0.0f, static_cast<float>(width))  * 128.f;
+    float y = random(0.0f, static_cast<float>(height)) * 128.f;
+    enemies.push_back(std::make_unique<Cobald>(XYZEngine::Vector2Df{x, y},player->GetGameObject()           
+    ));
+    }
     music = std::make_unique<Music>("GamePlaymusic");
+    
 }
 void DeveloperLevel::Restart()
 {
