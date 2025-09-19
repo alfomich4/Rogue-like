@@ -20,6 +20,7 @@ HealthBar::HealthBar(const XYZEngine::Vector2Df &position)
         playerHP = player->GetComponent<XYZEngine::StatsComponent>();
         transform->SetParent(playerT);
         transform->SetLocalPosition({-525.f, 295.f});
+        
     }
 
     auto change = gameObject->AddComponent<XYZEngine::HUDUpdaterComponent>();

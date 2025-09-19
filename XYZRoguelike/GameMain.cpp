@@ -31,7 +31,10 @@ int main()
 
     ResourceSystem::Instance()->LoadSound("GamePlaymusic", "Resources/Sounds/trapped.wav");
     ResourceSystem::Instance()->LoadSound("PlayerHurt", "Resources/Sounds/playerHurt.wav");
-    ResourceSystem::Instance()->LoadSound("CobaldDeath", "Resources/Sounds/Сobald_death.wav");
+    ResourceSystem::Instance()->LoadSound("CobaltDeath", "Resources/Sounds/Cobalt_death.wav");
+    ResourceSystem::Instance()->LoadSound("PlayerAttack", "Resources/Sounds/player_attack.wav");
+    ResourceSystem::Instance()->LoadSound("ArmorPick", "Resources/Sounds/armor.wav");
+    ResourceSystem::Instance()->LoadSound("HealthPick", "Resources/Sounds/AS.wav");
 
     auto developerLevel = std::make_shared<DeveloperLevel>();
     developerLevel->Start();

@@ -60,6 +60,28 @@ GameObject *GameWorld::FindObjectByName(const std::string &name)
     return nullptr;
 }
 
+GameObject *GameWorld::FindClosestByName(const std::string &name, const Vector2Df &from, float maxDist)
+{
+    GameObject *best = nullptr;
+    float bestDist = maxDist;
+
+    for (auto *go : gameObjects)
+    {
+        if (!go || go->GetName() != name)
+        { 
+            continue;
+        }
+        auto *t = go->GetComponent<TransformComponent>();
+        float d = from.CalculateDistance(t->GetWorldPosition());
+        if (d <= bestDist)
+        {
+            bestDist = d;
+            best = go;
+        }
+    }
+    return best;
+}
+
 GameObject *GameWorld::CreateGameObject()
 {
     GameObject *newGameObject = new GameObject();

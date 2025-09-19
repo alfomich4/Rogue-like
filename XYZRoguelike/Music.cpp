@@ -6,5 +6,7 @@ Music::Music(const std::string &soundName)
     auto music = gameObject->AddComponent<XYZEngine::AudioComponent>();
     music->SetAudio(*XYZEngine::ResourceSystem::Instance()->GetSound(soundName));
     music->SetLoop(true);
+    music->SetVolume(60.f);
     music->Play();
+
 }

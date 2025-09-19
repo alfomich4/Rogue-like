@@ -181,6 +181,7 @@
     <ClInclude Include="HealthPickup.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="randomizer.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>

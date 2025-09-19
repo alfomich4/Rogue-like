@@ -16,5 +16,5 @@ XYZRoguelike::Wall::Wall(const XYZEngine::Vector2Df position, int textureMapInde
     rigidbody->SetKinematic(true);
 
     auto collider = gameObject->AddComponent<XYZEngine::SpriteColliderComponent>();
-    collider->SetPadding({35.f, 0.f});
+    collider->SetPadding({25.f, 0.f});
 }

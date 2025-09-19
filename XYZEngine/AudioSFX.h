@@ -3,6 +3,7 @@
 #include "GameWorld.h"
 #include "AudioComponent.h"
 #include "ResourceSystem.h"
+#include "DestroyStopAudio.h"
 namespace XYZEngine
 {
 class AudioSFX
@@ -11,7 +12,6 @@ class AudioSFX
   public:
     AudioSFX(const std::string &soundName);
 
-  private:
-    XYZEngine::GameObject *gameObject;
+ 
 };
 } // namespace XYZEngine
