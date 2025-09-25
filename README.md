@@ -71,7 +71,9 @@ git clone https://github.com/alfomich4/Rogue-like
 
 2.Открыть Game.sln в Visual Studio 2022.
 
-3.Собрать и запустить (F5).
+3.Назначить в качестве запускаемого проекта XYZRoguelike в обозревателе решений
+
+4.Собрать и запустить (F5).
 
 Вариант 2 — через бат-скрипт (Build.bat)
 
